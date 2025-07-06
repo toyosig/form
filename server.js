@@ -11,7 +11,6 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-// mongodb+srv://<db_username>:<db_password>@cluster0.hwesx5e.mongodb.net/
 // MongoDB Connection
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/groupchat";
 
@@ -103,6 +102,33 @@ app.get('/api/registrations', async (req, res) => {
     });
   }
 });
+// POST - Login (fetch registration by phone number)
+app.post('/api/login', async (req, res) => {
+  try {
+    const existingRegistration = await Registration.findOne({
+      phoneNumber: req.body.phoneNumber,
+    });
+    if (existingRegistration) {
+      return res.status(200).json({
+        success: true,
+        message: 'Login successful',
+        data: existingRegistration,
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: 'Registration not found for this phone number',
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching registrations',
+      error: error.message,
+    });
+  }
+});
+
 
 // GET - Fetch single registration by ID
 app.get('/api/registrations/:id', async (req, res) => {
