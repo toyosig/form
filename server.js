@@ -117,7 +117,7 @@ app.post('/api/login', async (req, res) => {
     } else {
       return res.status(404).json({
         success: false,
-        message: 'Registration not found for this phone number',
+        message: 'This phone number is not registered yet',
       });
     }
   } catch (error) {
