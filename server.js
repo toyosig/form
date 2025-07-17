@@ -60,7 +60,218 @@ const registrationSchema = new mongoose.Schema({
   },
 });
 
+// Quiz Questions Schema
+const questionSchema = new mongoose.Schema({
+  question: {
+    type: String,
+    required: true,
+  },
+  options: [{
+    type: String,
+    required: true,
+  }],
+  correctAnswer: {
+    type: Number,
+    required: true,
+  },
+  active: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+// Quiz Session Schema
+const quizSessionSchema = new mongoose.Schema({
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
+  fullName: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    default: '',
+  },
+  startTime: {
+    type: Date,
+    required: true,
+  },
+  endTime: {
+    type: Date,
+  },
+  timeRemaining: {
+    type: Number,
+    default: 1200000, // 20 minutes in milliseconds
+  },
+  answers: [{
+    questionId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Question',
+    },
+    selectedAnswer: Number,
+    isCorrect: Boolean,
+  }],
+  score: {
+    type: Number,
+    default: 0,
+  },
+  totalQuestions: {
+    type: Number,
+    default: 0,
+  },
+  status: {
+    type: String,
+    enum: ['active', 'completed', 'timeout'],
+    default: 'active',
+  },
+  completedAt: {
+    type: Date,
+  },
+  timeTaken: {
+    type: Number, // in milliseconds
+  },
+});
+
 const Registration = mongoose.model('Registration', registrationSchema);
+const Question = mongoose.model('Question', questionSchema);
+const QuizSession = mongoose.model('QuizSession', quizSessionSchema);
+
+// Initialize quiz questions from your provided data
+const initializeQuestions = async () => {
+  const existingQuestions = await Question.countDocuments();
+  if (existingQuestions > 0) return;
+
+  const questions = [
+    {
+      question: "What was the name of Job's firstborn after his restoration?",
+      options: ["Kezia", "Jemima", "Karen-happuch"],
+      correctAnswer: 1
+    },
+    {
+      question: "Who was the father of Abraham?",
+      options: ["Noah", "Haran", "Terah"],
+      correctAnswer: 2
+    },
+    {
+      question: "The Ark of Noah rested after the flood on which mountain?",
+      options: ["Mount Camel", "Mount Olivet", "Mount Ararat"],
+      correctAnswer: 2
+    },
+    {
+      question: "After his trial, how many years did Job live?",
+      options: ["140 years", "150 years", "175 years"],
+      correctAnswer: 0
+    },
+    {
+      question: "Who was the first man God took away without seeing death?",
+      options: ["Elijah", "Jesus Christ", "Enoch"],
+      correctAnswer: 2
+    },
+    {
+      question: "Who said 'I know not, am I my brother's keeper?'",
+      options: ["Cain", "Esau", "Jonah"],
+      correctAnswer: 0
+    },
+    {
+      question: "What was the name of the wife which Abraham married after the death of Sarah?",
+      options: ["Hagai", "Keturah", "Rebecca"],
+      correctAnswer: 1
+    },
+    {
+      question: "Who was the father of Rebekah?",
+      options: ["Bethuel", "Nahor", "Laban"],
+      correctAnswer: 0
+    },
+    {
+      question: "How much did Abraham buy the place where he buried Sarah?",
+      options: ["400 pieces of silver", "40 pieces of silver", "30 pieces of gold"],
+      correctAnswer: 0
+    },
+    {
+      question: "What was the name of Rebekah's nurse?",
+      options: ["Rachel", "Keturah", "Deborah"],
+      correctAnswer: 2
+    },
+    {
+      question: "How many children did Jacob have?",
+      options: ["12", "13", "14"],
+      correctAnswer: 1
+    },
+    {
+      question: "What was the name which Rachel gave Benjamin at her death?",
+      options: ["Benjamin", "Benhadad", "Ben-oni"],
+      correctAnswer: 2
+    },
+    {
+      question: "How old was Joseph when he interpreted Pharaoh's dreams?",
+      options: ["30", "21", "17"],
+      correctAnswer: 0
+    },
+    {
+      question: "What are the names of Joseph's two sons?",
+      options: ["Zebulon and Manasseh", "Asher and Gad", "Manasseh and Ephraim"],
+      correctAnswer: 2
+    },
+    {
+      question: "How many souls came to Egypt with Jacob?",
+      options: ["17", "70", "600"],
+      correctAnswer: 1
+    },
+    {
+      question: "How much did Joseph's brothers sell him for?",
+      options: ["40 pieces of silver", "30 pieces of silver", "20 pieces of silver"],
+      correctAnswer: 2
+    },
+    {
+      question: "Paul Apostle was from which tribe of Israel?",
+      options: ["Judah", "Benjamin", "Ephraim"],
+      correctAnswer: 1
+    },
+    {
+      question: "What is the name of the man that was compelled to help Christ to carry His cross?",
+      options: ["Simon", "Joseph", "James"],
+      correctAnswer: 0
+    },
+    {
+      question: "What name did they call the land they bought with the money which Judas returned?",
+      options: ["Golgotha", "Field of blood", "Land of skull"],
+      correctAnswer: 1
+    },
+    {
+      question: "Where was Jesus crucified?",
+      options: ["Goshen", "Moriah", "Golgotha"],
+      correctAnswer: 2
+    },
+    {
+      question: "What is the name of the high priest's servant which Peter cut his ear?",
+      options: ["Malchus", "Mark", "Julius"],
+      correctAnswer: 0
+    },
+    {
+      question: "How much did Judas Iscariot betray Jesus Christ for?",
+      options: ["20 pieces of silver", "30 pieces of silver", "40 pieces of silver"],
+      correctAnswer: 1
+    },
+    {
+      question: "According to Jesus Christ in Matthew 5:22, what is the consequence of calling someone a fool?",
+      options: ["Danger of hell", "Danger of council", "Danger of judgment"],
+      correctAnswer: 0
+    },
+    {
+      question: "Where did God change Jacob's name to Israel?",
+      options: ["Bethel", "Luz", "Jabbok"],
+      correctAnswer: 2
+    }
+  ];
+
+  await Question.insertMany(questions);
+  console.log("✅ Quiz questions initialized");
+};
+
+// Initialize questions on startup
+initializeQuestions();
 
 // Validation middleware
 const validateRegistration = [
@@ -240,6 +451,356 @@ app.delete('/api/registrations/:id', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error deleting registration',
+      error: error.message,
+    });
+  }
+});
+
+// ============= CBT QUIZ ROUTES =============
+
+// GET - Check quiz session status
+app.get('/api/quiz/session/:phoneNumber', async (req, res) => {
+  try {
+    const session = await QuizSession.findOne({
+      phoneNumber: req.params.phoneNumber,
+    }).populate('answers.questionId');
+
+    if (!session) {
+      return res.json({
+        success: true,
+        hasSession: false,
+        message: 'No active quiz session found',
+      });
+    }
+
+    // Check if session has timed out
+    const now = new Date();
+    const sessionStartTime = new Date(session.startTime);
+    const timeElapsed = now - sessionStartTime;
+    const timeRemaining = Math.max(0, 1200000 - timeElapsed); // 20 minutes
+
+    if (timeRemaining <= 0 && session.status === 'active') {
+      // Auto-complete session due to timeout
+      await completeQuizSession(session._id, 'timeout');
+      return res.json({
+        success: true,
+        hasSession: true,
+        status: 'timeout',
+        message: 'Quiz session has timed out',
+        session: await QuizSession.findById(session._id),
+      });
+    }
+
+    res.json({
+      success: true,
+      hasSession: true,
+      timeRemaining,
+      session,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error checking quiz session',
+      error: error.message,
+    });
+  }
+});
+
+// POST - Start quiz session
+app.post('/api/quiz/start', async (req, res) => {
+  try {
+    const { phoneNumber } = req.body;
+
+    // Check if user is registered
+    const registration = await Registration.findOne({ phoneNumber });
+    if (!registration) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not registered',
+      });
+    }
+
+    // Check if user already has a completed session
+    const existingSession = await QuizSession.findOne({
+      phoneNumber,
+      status: { $in: ['completed', 'timeout'] },
+    });
+
+    if (existingSession) {
+      return res.status(400).json({
+        success: false,
+        message: 'Quiz attempt already completed',
+        session: existingSession,
+      });
+    }
+
+    // Check if user has an active session
+    const activeSession = await QuizSession.findOne({
+      phoneNumber,
+      status: 'active',
+    });
+
+    if (activeSession) {
+      return res.json({
+        success: true,
+        message: 'Resuming existing quiz session',
+        session: activeSession,
+      });
+    }
+
+    // Get random questions
+    const questions = await Question.find({ active: true });
+    const shuffledQuestions = questions.sort(() => 0.5 - Math.random());
+
+    // Create new quiz session
+    const session = new QuizSession({
+      phoneNumber,
+      fullName: registration.fullName,
+      email: registration.email || '',
+      startTime: new Date(),
+      totalQuestions: shuffledQuestions.length,
+      answers: shuffledQuestions.map(q => ({
+        questionId: q._id,
+        selectedAnswer: null,
+        isCorrect: false,
+      })),
+    });
+
+    await session.save();
+
+    res.json({
+      success: true,
+      message: 'Quiz session started successfully',
+      session,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error starting quiz session',
+      error: error.message,
+    });
+  }
+});
+
+// GET - Get quiz questions for session
+app.get('/api/quiz/questions/:sessionId', async (req, res) => {
+  try {
+    const session = await QuizSession.findById(req.params.sessionId)
+      .populate('answers.questionId');
+
+    if (!session) {
+      return res.status(404).json({
+        success: false,
+        message: 'Quiz session not found',
+      });
+    }
+
+    // Check if session is still active
+    if (session.status !== 'active') {
+      return res.json({
+        success: true,
+        questions: [],
+        session,
+        message: 'Quiz session is no longer active',
+      });
+    }
+
+    const questions = session.answers.map(answer => ({
+      _id: answer.questionId._id,
+      question: answer.questionId.question,
+      options: answer.questionId.options,
+      selectedAnswer: answer.selectedAnswer,
+    }));
+
+    res.json({
+      success: true,
+      questions,
+      session,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching quiz questions',
+      error: error.message,
+    });
+  }
+});
+
+// POST - Submit answer
+app.post('/api/quiz/answer', async (req, res) => {
+  try {
+    const { sessionId, questionId, selectedAnswer } = req.body;
+
+    const session = await QuizSession.findById(sessionId);
+    if (!session) {
+      return res.status(404).json({
+        success: false,
+        message: 'Quiz session not found',
+      });
+    }
+
+    if (session.status !== 'active') {
+      return res.status(400).json({
+        success: false,
+        message: 'Quiz session is not active',
+      });
+    }
+
+    // Find and update the answer
+    const answerIndex = session.answers.findIndex(
+      a => a.questionId.toString() === questionId
+    );
+
+    if (answerIndex === -1) {
+      return res.status(400).json({
+        success: false,
+        message: 'Question not found in session',
+      });
+    }
+
+    // Get the correct answer
+    const question = await Question.findById(questionId);
+    const isCorrect = selectedAnswer === question.correctAnswer;
+
+    session.answers[answerIndex].selectedAnswer = selectedAnswer;
+    session.answers[answerIndex].isCorrect = isCorrect;
+
+    await session.save();
+
+    res.json({
+      success: true,
+      message: 'Answer submitted successfully',
+      isCorrect,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error submitting answer',
+      error: error.message,
+    });
+  }
+});
+
+// Helper function to complete quiz session
+const completeQuizSession = async (sessionId, status = 'completed') => {
+  const session = await QuizSession.findById(sessionId);
+  if (!session) return null;
+
+  const score = session.answers.filter(a => a.isCorrect).length;
+  const now = new Date();
+  const timeTaken = now - new Date(session.startTime);
+
+  session.status = status;
+  session.score = score;
+  session.completedAt = now;
+  session.timeTaken = timeTaken;
+
+  await session.save();
+  return session;
+};
+
+// POST - Submit quiz
+app.post('/api/quiz/submit', async (req, res) => {
+  try {
+    const { sessionId } = req.body;
+
+    const session = await completeQuizSession(sessionId, 'completed');
+    if (!session) {
+      return res.status(404).json({
+        success: false,
+        message: 'Quiz session not found',
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'Quiz submitted successfully',
+      session,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error submitting quiz',
+      error: error.message,
+    });
+  }
+});
+
+// GET - Get quiz results
+app.get('/api/quiz/results', async (req, res) => {
+  try {
+    const results = await QuizSession.find({
+      status: { $in: ['completed', 'timeout'] },
+    })
+    .select('fullName phoneNumber email score totalQuestions timeTaken completedAt status')
+    .sort({ completedAt: -1 });
+
+    const formattedResults = results.map(result => ({
+      fullName: result.fullName,
+      phoneNumber: result.phoneNumber,
+      email: result.email,
+      score: result.score,
+      totalQuestions: result.totalQuestions,
+      percentage: ((result.score / result.totalQuestions) * 100).toFixed(2),
+      timeTaken: Math.floor(result.timeTaken / 1000), // Convert to seconds
+      completedAt: result.completedAt,
+      status: result.status,
+    }));
+
+    res.json({
+      success: true,
+      count: formattedResults.length,
+      data: formattedResults,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching quiz results',
+      error: error.message,
+    });
+  }
+});
+
+// GET - Get user's quiz result
+app.get('/api/quiz/result/:phoneNumber', async (req, res) => {
+  try {
+    const result = await QuizSession.findOne({
+      phoneNumber: req.params.phoneNumber,
+      status: { $in: ['completed', 'timeout'] },
+    }).populate('answers.questionId');
+
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: 'No quiz result found for this user',
+      });
+    }
+
+    res.json({
+      success: true,
+      data: {
+        fullName: result.fullName,
+        phoneNumber: result.phoneNumber,
+        email: result.email,
+        score: result.score,
+        totalQuestions: result.totalQuestions,
+        percentage: ((result.score / result.totalQuestions) * 100).toFixed(2),
+        timeTaken: Math.floor(result.timeTaken / 1000),
+        completedAt: result.completedAt,
+        status: result.status,
+        answers: result.answers.map(answer => ({
+          question: answer.questionId.question,
+          options: answer.questionId.options,
+          correctAnswer: answer.questionId.correctAnswer,
+          selectedAnswer: answer.selectedAnswer,
+          isCorrect: answer.isCorrect,
+        })),
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching quiz result',
       error: error.message,
     });
   }
