@@ -274,7 +274,7 @@ const initializeQuestions = async () => {
       options: ["Lamech", "Achan", "Cain"],
       correctAnswer: 2
     },
-    
+    //na new one
     // New questions you want to add
     {
       question: "What was the name of Job's firstborn after his restoration?",
