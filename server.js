@@ -145,6 +145,138 @@ const initializeQuestions = async () => {
 
   const questions = [
     {
+      question: "What are the names of Moses' parents?",
+      options: ["Abraham and Sarah", "Levi and Tarmah", "Amram and Jochebed"],
+      correctAnswer: 2
+    },
+    {
+      question: "Who said 'Thou art the Christ, the Son of the living God'?",
+      options: ["Nathaniel", "Peter", "Andrew"],
+      correctAnswer: 1
+    },
+    {
+      question: "To whom did Jesus say 'Follow me and I will make you fishers of men'?",
+      options: ["James and John", "Matthew and Thomas", "Peter and Andrew"],
+      correctAnswer: 2
+    },
+    {
+      question: "From Abraham to Jesus Christ was how many generations?",
+      options: ["42", "28", "14"],
+      correctAnswer: 0
+    },
+    {
+      question: "What was the occupation of Matthew before Jesus called him as disciple?",
+      options: ["Fisherman", "Tax collector", "Carpenter"],
+      correctAnswer: 1
+    },
+    {
+      question: "Where did Jesus' parents take him when King Herod wanted to kill him?",
+      options: ["Nazareth", "Galilee", "Egypt"],
+      correctAnswer: 2
+    },
+    {
+      question: "The first four disciples of Jesus were called by the sea of...",
+      options: ["Galilee", "Jordan", "Jericho"],
+      correctAnswer: 0
+    },
+    {
+      question: "What is the name of the only daughter of Jacob?",
+      options: ["Rachel", "Tamar", "Dinah"],
+      correctAnswer: 2
+    },
+    {
+      question: "What are the names of the two sons of Moses?",
+      options: ["Gershom and Eliezer", "Manasseh and Ephraim", "Nadab and Abihu"],
+      correctAnswer: 0
+    },
+    {
+      question: "Who was the minister of Moses?",
+      options: ["Aaron", "Joshua", "Miriam"],
+      correctAnswer: 1
+    },
+    {
+      question: "Moses was from which tribe in Israel?",
+      options: ["Judah", "Levi", "Reuben"],
+      correctAnswer: 1
+    },
+    {
+      question: "Upon which mountain did God give Moses the ten commandments?",
+      options: ["Mount Horeb", "Mount Pisgah", "Mount Sinai"],
+      correctAnswer: 2
+    },
+    {
+      question: "For how long did Moses' parents hide him before he was taken to the bank of river?",
+      options: ["3 months", "6 months", "9 months"],
+      correctAnswer: 0
+    },
+    {
+      question: "Who was the father of Lot?",
+      options: ["Haran", "Terah", "Nahor"],
+      correctAnswer: 0
+    },
+    {
+      question: "God confounded the language of the world at...",
+      options: ["Bethel", "Eden", "Babel"],
+      correctAnswer: 2
+    },
+    {
+      question: "Who was the first man to practice polygamy?",
+      options: ["Abraham", "Lamech", "Nahor"],
+      correctAnswer: 1
+    },
+    {
+      question: "How old was Methuselah when he died?",
+      options: ["996 years", "969 years", "966 years"],
+      correctAnswer: 1
+    },
+    {
+      question: "What are the names of twins of Judah?",
+      options: ["Pharez and Zarah", "Manasseh and Ephraim", "Gershom and Eliezer"],
+      correctAnswer: 0
+    },
+    {
+      question: "How old was Isaac when Esau and Jacob were born?",
+      options: ["40", "50", "60"],
+      correctAnswer: 2
+    },
+    {
+      question: "How old was Moses when he died?",
+      options: ["120 years", "145 years", "175 years"],
+      correctAnswer: 0
+    },
+    {
+      question: "What is the name of the King that killed John the Baptist?",
+      options: ["Herod the Great", "Herod the Tetrarch", "Agrippa"],
+      correctAnswer: 1
+    },
+    {
+      question: "What is the name given to Peter by Jesus Christ?",
+      options: ["Barjona", "Simon", "Alpheus"],
+      correctAnswer: 0
+    },
+    {
+      question: "What is the name of the brother of King Herod which the king took his wife from him?",
+      options: ["Felix", "Agrippa", "Philip"],
+      correctAnswer: 2
+    },
+    {
+      question: "After his trial, how many children did Job have?",
+      options: ["10", "7", "3"],
+      correctAnswer: 0
+    },
+    {
+      question: "After Cain murdered his brother, he went out of the presence of God and dwelt in which land?",
+      options: ["Canaan", "Nod", "Moriah"],
+      correctAnswer: 1
+    },
+    {
+      question: "Who was the first man to commit murder?",
+      options: ["Lamech", "Achan", "Cain"],
+      correctAnswer: 2
+    },
+    
+    // New questions you want to add
+    {
       question: "What was the name of Job's firstborn after his restoration?",
       options: ["Kezia", "Jemima", "Karen-happuch"],
       correctAnswer: 1
@@ -264,6 +396,7 @@ const initializeQuestions = async () => {
       options: ["Bethel", "Luz", "Jabbok"],
       correctAnswer: 2
     }
+
   ];
 
   await Question.insertMany(questions);
