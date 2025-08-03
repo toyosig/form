@@ -139,27 +139,62 @@ const Question = mongoose.model('Question', questionSchema);
 const QuizSession = mongoose.model('QuizSession', quizSessionSchema);
 
 // Initialize quiz questions from your provided data
-const initializeQuestions = async () => {
-  const existingQuestions = await Question.countDocuments();
-  if (existingQuestions > 0) return;
+// Replace your existing initializeQuestions function with this updated version
 
-  const questions = [
-    {
-      question: "What are the names of Moses' parents?",
-      options: ["Abraham and Sarah", "Levi and Tarmah", "Amram and Jochebed"],
-      correctAnswer: 2
-    },
-    // New questions you want to add
+const initializeQuestions = async (forceReset = false) => {
+  try {
+    const existingQuestions = await Question.countDocuments();
+    
+    // Skip if questions exist and not forcing reset
+    if (existingQuestions > 0 && !forceReset) {
+      console.log(`✅ ${existingQuestions} quiz questions already exist`);
+      return;
+    }
 
-  ];
+    // Clear existing questions if forcing reset
+    if (forceReset && existingQuestions > 0) {
+      await Question.deleteMany({});
+      console.log(`🗑️ Cleared ${existingQuestions} existing questions`);
+    }
 
-  await Question.insertMany(questions);
-  console.log("✅ Quiz questions initialized");
+    // Your new questions array - replace with your actual questions
+    const questions = [
+      {
+        question: "What are the names of Moses' parents?",
+        options: ["Abraham and Sarah", "Levi and Tarmah", "Amram and Jochebed"],
+        correctAnswer: 2
+      },
+      {
+        question: "Who was the first king of Israel?",
+        options: ["David", "Saul", "Solomon", "Samuel"],
+        correctAnswer: 1
+      },
+      {
+        question: "How many days did it rain during the flood in Noah's time?",
+        options: ["30 days", "40 days", "50 days", "60 days"],
+        correctAnswer: 1
+      },
+      {
+        question: "What was the name of Abraham's wife?",
+        options: ["Rachel", "Rebecca", "Sarah", "Leah"],
+        correctAnswer: 2
+      },
+      {
+        question: "Which prophet was swallowed by a great fish?",
+        options: ["Jonah", "Elijah", "Isaiah", "Jeremiah"],
+        correctAnswer: 0
+      },
+      // Add more questions here...
+    ];
+
+    const insertedQuestions = await Question.insertMany(questions);
+    console.log(`✅ Successfully initialized ${insertedQuestions.length} quiz questions`);
+  } catch (error) {
+    console.error("❌ Error initializing questions:", error);
+  }
 };
 
-// Initialize questions on startup
 initializeQuestions();
-
 // Validation middleware
 const validateRegistration = [
   body('fullName').notEmpty().withMessage('Full name is required'),
