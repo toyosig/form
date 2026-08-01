@@ -132,52 +132,27 @@ const initializeQuestions = async (forceReset = false) => {
     }
 
     if (forceReset && count > 0) {
+      await pool.query('DELETE FROM quiz_answers WHERE question_id IN (SELECT id FROM questions)');
       await pool.query('DELETE FROM questions');
       console.log(`Cleared ${count} existing questions`);
     }
 
-    const questions = [
-      {
-        question: "What are the names of Moses' parents?",
-        options: ["Abraham and Sarah", "Levi and Tarmah", "Amram and Jochebed"],
-        correctAnswer: 2
-      },
-      {
-        question: "Who was the first king of Israel?",
-        options: ["David", "Saul", "Solomon", "Samuel"],
-        correctAnswer: 1
-      },
-      {
-        question: "How many days did it rain during the flood in Noah's time?",
-        options: ["30 days", "40 days", "50 days", "60 days"],
-        correctAnswer: 1
-      },
-      {
-        question: "What was the name of Abraham's wife?",
-        options: ["Rachel", "Rebecca", "Sarah", "Leah"],
-        correctAnswer: 2
-      },
-      {
-        question: "Which prophet was swallowed by a great fish?",
-        options: ["Jonah", "Elijah", "Isaiah", "Jeremiah"],
-        correctAnswer: 0
-      },
-    ];
+    const { quizQuestions } = require('./quiz-data');
 
-    for (const q of questions) {
+    for (const q of quizQuestions) {
       await pool.query(
         'INSERT INTO questions (question, options, correct_answer, active) VALUES ($1, $2, $3, true)',
         [q.question, q.options, q.correctAnswer]
       );
     }
 
-    console.log(`Successfully initialized ${questions.length} quiz questions`);
+    console.log(`Successfully initialized ${quizQuestions.length} quiz questions`);
   } catch (error) {
     console.error("Error initializing questions:", error);
   }
 };
 
-initializeQuestions();
+initializeQuestions(process.env.RESET_QUESTIONS === 'true');
 
 const validateRegistration = [
   body('fullName').notEmpty().withMessage('Full name is required'),
