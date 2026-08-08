@@ -3,6 +3,7 @@ const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
 const { body, validationResult } = require('express-validator');
+const { normalizePhone, isStage2Eligible } = require('./stage2-eligible');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -132,9 +133,10 @@ const initializeQuestions = async (forceReset = false) => {
     }
 
     if (forceReset && count > 0) {
-      await pool.query('DELETE FROM quiz_answers WHERE question_id IN (SELECT id FROM questions)');
+      await pool.query('DELETE FROM quiz_sessions');
+      await pool.query('DELETE FROM quiz_answers');
       await pool.query('DELETE FROM questions');
-      console.log(`Cleared ${count} existing questions`);
+      console.log(`Cleared ${count} existing questions and old quiz sessions`);
     }
 
     const { quizQuestions } = require('./quiz-data');
@@ -184,9 +186,17 @@ app.get('/api/registrations', async (req, res) => {
 
 app.post('/api/login', async (req, res) => {
   try {
+    if (!isStage2Eligible(req.body.phoneNumber)) {
+      return res.status(403).json({
+        success: false,
+        message: 'This phone number is not eligible for Stage 2 of the quiz',
+      });
+    }
+
+    const normalizedPhone = normalizePhone(req.body.phoneNumber);
     const result = await pool.query(
-      'SELECT * FROM registrations WHERE phone_number = $1',
-      [req.body.phoneNumber]
+      'SELECT * FROM registrations WHERE phone_number = $1 OR phone_number = $2',
+      [req.body.phoneNumber, normalizedPhone]
     );
     if (result.rows.length > 0) {
       return res.status(200).json({
@@ -431,9 +441,17 @@ app.post('/api/quiz/start', async (req, res) => {
   try {
     const { phoneNumber } = req.body;
 
+    if (!isStage2Eligible(phoneNumber)) {
+      return res.status(403).json({
+        success: false,
+        message: 'This phone number is not eligible for Stage 2 of the quiz',
+      });
+    }
+
+    const normalizedPhone = normalizePhone(phoneNumber);
     const regResult = await pool.query(
-      'SELECT * FROM registrations WHERE phone_number = $1',
-      [phoneNumber]
+      'SELECT * FROM registrations WHERE phone_number = $1 OR phone_number = $2',
+      [phoneNumber, normalizedPhone]
     );
     if (regResult.rows.length === 0) {
       return res.status(404).json({

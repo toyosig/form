@@ -18,11 +18,10 @@ const seed = async () => {
     const existingCount = countResult.rows[0].count;
 
     if (existingCount > 0) {
-      await client.query(
-        "DELETE FROM quiz_answers WHERE question_id IN (SELECT id FROM questions)"
-      );
+      await client.query("DELETE FROM quiz_sessions");
+      await client.query("DELETE FROM quiz_answers");
       await client.query("DELETE FROM questions");
-      console.log(`Cleared ${existingCount} existing questions`);
+      console.log(`Cleared ${existingCount} existing questions and old quiz sessions`);
     }
 
     for (const q of quizQuestions) {

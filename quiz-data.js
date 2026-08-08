@@ -1,178 +1,153 @@
 const quizQuestions = [
   {
-    question: "I know not, am I my brother's keeper..... Who said this?",
-    options: ["Saul", "Cain", "Judas"],
+    question: "How many generations were from Abraham to Jesus Christ?",
+    options: ["14", "28", "42"],
+    correctAnswer: 2
+  },
+  {
+    question: "Who is the brother of Simon Peter",
+    options: ["Mathew", "Andrew", "Nathaniel"],
     correctAnswer: 1
   },
   {
-    question: "Where did God confounded the language of the world",
-    options: ["Eden", "Jericho", "Babel"],
-    correctAnswer: 2
+    question: "The first four disciples were called by the sea of....",
+    options: ["Galilee", "Jordan", "Mediterranean"],
+    correctAnswer: 0
   },
   {
-    question: "Who was the first man to practice polygamy.",
-    options: ["Noah", "Abraham", "Lamech"],
-    correctAnswer: 2
+    question: "\"Lord, am not worthy that you should come under my roof, but speak the word only\" Who said this?",
+    options: ["Centurion", "Eunuch of Ethiopia", "Cornelius"],
+    correctAnswer: 0
   },
   {
-    question: "How many books are in the old testament",
-    options: ["37", "39", "66"],
+    question: "According to Mathew 5:22, what is the consequence of calling someone a fool",
+    options: ["Danger of council", "Danger of hell", "Death"],
     correctAnswer: 1
   },
   {
-    question: "The ark of Noah rested after the flood on which mount",
-    options: ["Ararat", "Nebo", "Zion"],
+    question: "How many chapters are in the book of Mathew",
+    options: ["26", "27", "28"],
+    correctAnswer: 2
+  },
+  {
+    question: "What is the name of the man that helped Christ to carry His cross",
+    options: ["Simon", "Joseph", "Nathaniel"],
     correctAnswer: 0
   },
   {
-    question: "Who was the father of Abraham",
-    options: ["Noah", "Terah", "Nahor"],
+    question: "According to Mathew 2:18, what is the name of the woman crying for her children",
+    options: ["Sarah", "Hannah", "Rachel"],
+    correctAnswer: 2
+  },
+  {
+    question: "What is another name given to Peter by Jesus",
+    options: ["Stone", "Barjona", "Simon"],
     correctAnswer: 1
   },
   {
-    question: "What was the name of the wife that Abraham married after the death of Sarah",
-    options: ["Keturah", "Hagar", "Rebecca"],
+    question: "What is the name of the king that killed John the Baptist",
+    options: ["Herod the Tetrarch", "Herod Pontius", "Herod Pilate"],
     correctAnswer: 0
   },
   {
-    question: "What was the name of Rebecca's nurse",
-    options: ["Deborah", "Puah", "Leah"],
-    correctAnswer: 0
+    question: "\"Thou art the Christ, the son of the living God\" Who said this",
+    options: ["John the Baptist", "Mathew", "Simon Peter"],
+    correctAnswer: 2
   },
   {
-    question: "How much did Joseph's brother sold him",
-    options: ["20 pieces of silver", "30 pieces of silver", "30 pieces of gold"],
-    correctAnswer: 0
-  },
-  {
-    question: "Who was the first man which God took away without seen death",
-    options: ["Elijah", "Enoch", "Metuselah"],
+    question: "After the Lord's supper, upon which mountain did Jesus and His disciples went to",
+    options: ["Mount Zion", "Mount Olive", "Mount Horeb"],
     correctAnswer: 1
   },
   {
-    question: "Joshua was from which tribe in Israel",
-    options: ["Levi", "Judah", "Ephraim"],
-    correctAnswer: 2
-  },
-  {
-    question: "Who took over as high priest after Aaron",
-    options: ["Eleazar", "Phinehas", "Eli"],
+    question: "For how much did Judas Iscariot betrayed Jesus Christ",
+    options: ["30 pieces of silver", "20 pieces of gold", "20 pieces of silver"],
     correctAnswer: 0
   },
   {
-    question: "Let me die the death of the righteous and let my last be like his. Who said this?",
-    options: ["Abraham", "Balak", "Balam"],
+    question: "Where did the parents of Jesus took him when king Herod wanted to kill him",
+    options: ["Egypt", "Nazareth", "Galilee"],
+    correctAnswer: 0
+  },
+  {
+    question: "How many disciples followed Jesus to the mountain of transfiguration",
+    options: ["Two", "Three", "Four"],
     correctAnswer: 1
   },
   {
-    question: "Samson was from which tribe in Israel",
-    options: ["Judah", "Mannaseh", "Dan"],
-    correctAnswer: 2
-  },
-  {
-    question: "It is the Lord, let Him do what seemeth him good. Who said this.",
-    options: ["Eli", "Cain", "Saul"],
-    correctAnswer: 0
-  },
-  {
-    question: "Who was the father of David.",
-    options: ["Kish", "Judah", "Jesse"],
-    correctAnswer: 2
-  },
-  {
-    question: "What have I done, is there not a cause... Who said this?",
-    options: ["Isaiah", "David", "Jeremiah"],
+    question: "What are the names of prophets that appeared to Jesus Christ at the mountain of transfiguration",
+    options: ["Moses and Samuel", "Moses and Elijah", "Samuel and Elijah"],
     correctAnswer: 1
   },
   {
-    question: "What Is the name of Solomon's mother",
-    options: ["Abigael", "Michal", "Bathsheba"],
+    question: "What is the name of the place where Jesus went to pray when He was arrested",
+    options: ["Golgotha", "Olive", "Gethsemane"],
     correctAnswer: 2
   },
   {
-    question: "Jesus Christ is from which tribe in Israel",
-    options: ["Judah", "Levi", "Benjamin"],
-    correctAnswer: 0
-  },
-  {
-    question: "What was the former occupation of Mathew, Jesus disciple.",
-    options: ["Tax Collector", "Fisherman", "Shepherd"],
-    correctAnswer: 0
-  },
-  {
-    question: "Who was the disciple that deny Jesus.",
-    options: ["Peter", "Judas", "Thomas"],
-    correctAnswer: 0
-  },
-  {
-    question: "Thou art Christ, the son of the living God. Who said this.",
-    options: ["Nathaniel", "John", "Peter"],
+    question: "What is the meaning of Golgotha",
+    options: ["Calvary", "burying place", "a place of skull"],
     correctAnswer: 2
   },
   {
-    question: "How many disciples followed Jesus to the mount of transfiguration?",
-    options: ["5", "4", "3"],
-    correctAnswer: 2
-  },
-  {
-    question: "Lo, we have left all, and have followed thee. Who said this?",
-    options: ["James", "Peter", "Thomas"],
+    question: "What is the name of the governor that they handed Jesus for trial",
+    options: ["Cessar Augusta", "Pontius Pilate", "Felix Aggrippa"],
     correctAnswer: 1
   },
   {
-    question: "What was the name of pharisee who came to Jesus by night?",
-    options: ["Agabus", "Nicodemus", "Kaifa"],
+    question: "What is the name of the land they used the money which Judas Iscariot returned",
+    options: ["The field of blood", "A place of skull", "The land of Goshen"],
+    correctAnswer: 0
+  },
+  {
+    question: "What is the name of the place where Jesus was crucified",
+    options: ["Gethsemane", "Golgotha", "Goshen"],
     correctAnswer: 1
   },
   {
-    question: "Who replaced Judas Iscariot as an apostle?",
-    options: ["Paul", "Barnabas", "Mathias"],
+    question: "Who was the person that begged for the body of Jesus Christ for burial",
+    options: ["Joseph of Cyrene", "Joseph of Samaria", "Joseph of Arimathea"],
     correctAnswer: 2
   },
   {
-    question: "Who was the first new testament martyr?",
-    options: ["James", "Paul", "Stephen"],
-    correctAnswer: 2
-  },
-  {
-    question: "He had four daughters and they all prophecy. Who is he?",
-    options: ["Evangelist Philip", "Ananias", "Barnabas"],
+    question: "What is the name of the notable criminal that was released instead of Jesus Christ",
+    options: ["Barabbas", "Banabas", "Mathias"],
     correctAnswer: 0
   },
   {
-    question: "What was the name of the woman from which Jesus casted out seven demons?",
-    options: ["Mary of Aramathia", "Mary the sister of Lazarus", "Mary Magdalane"],
-    correctAnswer: 2
-  },
-  {
-    question: "Who wrote the book of revelation",
-    options: ["John the beloved", "John the Baptist", "Thomas Didymu"],
-    correctAnswer: 0
-  },
-  {
-    question: "Who was the father of John the Baptist",
-    options: ["Elikanah", "Zebedee", "Zechariah"],
-    correctAnswer: 2
-  },
-  {
-    question: "The name of the only daughter of Jacob was",
-    options: ["Dinah", "Rebecca", "Temah"],
-    correctAnswer: 0
-  },
-  {
-    question: "How much did Judas Iscariot collected to betray Jesus.",
-    options: ["20 pieces of silver", "30 pieces of silver", "30 pieces of gold"],
+    question: "\"Lord, it is good for us to be here..... let us make here three Tabernacles.....\" Who said this",
+    options: ["James", "Peter", "John"],
     correctAnswer: 1
   },
   {
-    question: "Lord, it is good for us to be here..... let us make three tabernacles.... who said this?",
-    options: ["Simon Peter", "James", "Nathaniel"],
+    question: "When Jesus fed people with seven loaves of bread and few fishes, how many baskets remain",
+    options: ["Seven", "Nine", "Twelve"],
     correctAnswer: 0
   },
   {
-    question: "How many prophets appeared to Jesus Christ at the mount of transfiguration",
-    options: ["4", "3", "2"],
+    question: "\"A prophet is not without honor save in his own county\". Who said this",
+    options: ["Simon Peter", "John the Baptist", "Jesus Christ"],
     correctAnswer: 2
+  },
+  {
+    question: "For how many years did the woman with the issue of blood suffered before she met Jesus Christ",
+    options: ["38", "18", "12"],
+    correctAnswer: 2
+  },
+  {
+    question: "Who was the reigning king in Israel when Jesus was born",
+    options: ["Aggrippa", "Herod", "Pilate"],
+    correctAnswer: 1
+  },
+  {
+    question: "How many generations are from Abraham to David",
+    options: ["14", "28", "42"],
+    correctAnswer: 0
+  },
+  {
+    question: "Which of the disciples was a tax collector",
+    options: ["Mathew", "Bartholomew", "Alphaeus"],
+    correctAnswer: 0
   },
 ];
 
