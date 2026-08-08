@@ -15,6 +15,7 @@ const stage2EligibleNumbers = [
   "09133033346", // Olawore oluwashina
   "08164061776", // Nnadi Nnamdi Innocent
   "09077879259",
+  "08144207242",
 ];
 
 const normalizePhone = (phone) => {
